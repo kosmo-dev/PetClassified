@@ -9,6 +9,7 @@ import UIKit
 
 protocol MainViewControllerProtocol: AnyObject {
     func display(advs: [Advertisement])
+    func updateCellWithImage(_ images: [String: UIImage], for indexPaths: [IndexPath])
 }
 
 final class MainViewController: UIViewController {
@@ -24,6 +25,7 @@ final class MainViewController: UIViewController {
     private var interactor: MainInteractorProtocol
 
     private var cells: [Advertisement] = []
+    private var images: [String: UIImage] = [:]
 
     // MARK: - initializers
     init(interactor: MainInteractorProtocol) {
@@ -39,9 +41,16 @@ final class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.prefetchDataSource = self
         collectionView.register(MainCollectionViewCell.self)
         configureView()
         interactor.fetchData()
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        interactor.cancelAllLoadTasks()
     }
 
     // MARK: - Private Methods
@@ -97,8 +106,28 @@ extension MainViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: MainCollectionViewCell = collectionView.dequeueReusableCell(indexPath: indexPath)
-        cell.configureCell(adv: cells[indexPath.row])
+        let adv = cells[indexPath.row]
+        let image = images[adv.imageURL] ?? UIImage(systemName: "photo") ?? UIImage()
+        cell.configureCell(adv: adv, image: image)
         return cell
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+extension MainViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let imageURL = cells[indexPath.row].imageURL
+        interactor.fetchImage(for: imageURL)
+    }
+}
+
+// MARK: - UICollectionViewDataSourcePrefetching
+extension MainViewController: UICollectionViewDataSourcePrefetching {
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        for indexPath in indexPaths {
+            let imageURL = cells[indexPath.row].imageURL
+            interactor.fetchImage(for: imageURL)
+        }
     }
 }
 
@@ -107,6 +136,11 @@ extension MainViewController: MainViewControllerProtocol {
     func display(advs: [Advertisement]) {
         cells = advs
         collectionView.reloadData()
+    }
+
+    func updateCellWithImage(_ images: [String : UIImage], for indexPaths: [IndexPath]) {
+        self.images = images
+        collectionView.reloadItems(at: indexPaths)
     }
 }
 

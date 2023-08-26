@@ -71,8 +71,8 @@ final class MainCollectionViewCell: UICollectionViewCell, ReuseIdentifying {
     }
 
     // MARK: - Public Methods
-    func configureCell(adv: Advertisement) {
-        imageView.image = UIImage(systemName: "photo")
+    func configureCell(adv: Advertisement, image: UIImage) {
+        imageView.image = image
         title.text = adv.title
         price.text = adv.price
         location.text = adv.location
