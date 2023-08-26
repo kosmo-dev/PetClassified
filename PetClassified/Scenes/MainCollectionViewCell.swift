@@ -9,11 +9,12 @@ import UIKit
 
 final class MainCollectionViewCell: UICollectionViewCell, ReuseIdentifying {
     // MARK: - Private Properties
-    private let image: UIImageView = {
-        let image = UIImageView()
-        image.contentMode = .scaleAspectFill
-        image.translatesAutoresizingMaskIntoConstraints = false
-        return image
+    private let imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.masksToBounds = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
     }()
 
     private let title: UILabel = {
@@ -52,6 +53,7 @@ final class MainCollectionViewCell: UICollectionViewCell, ReuseIdentifying {
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.spacing = 4
+        stackView.axis = .vertical
         stackView.alignment = .leading
         stackView.distribution = .fillProportionally
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -69,22 +71,26 @@ final class MainCollectionViewCell: UICollectionViewCell, ReuseIdentifying {
     }
 
     // MARK: - Public Methods
-    func configureCell() {
-        
+    func configureCell(adv: Advertisement) {
+        imageView.image = UIImage(systemName: "photo")
+        title.text = adv.title
+        price.text = adv.price
+        location.text = adv.location
+        createdDate.text = adv.createdDate
     }
 
     // MARK: - Private Methods
     private func configureView() {
-        [image, stackView].forEach { addSubview($0) }
+        [imageView, stackView].forEach { addSubview($0) }
         [title, price, location, createdDate].forEach { stackView.addArrangedSubview($0) }
 
         NSLayoutConstraint.activate([
-            image.topAnchor.constraint(equalTo: topAnchor),
-            image.leadingAnchor.constraint(equalTo: leadingAnchor),
-            image.trailingAnchor.constraint(equalTo: trailingAnchor),
-            image.heightAnchor.constraint(equalTo: image.widthAnchor, multiplier: 1),
+            imageView.topAnchor.constraint(equalTo: topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1),
 
-            stackView.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 4),
+            stackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 4),
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor)
