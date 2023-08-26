@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol MainViewControllerProtocol: AnyObject {
+    func display(advs: [Advertisement])
+}
+
 final class MainViewController: UIViewController {
     // MARK: - Private Properties
     private lazy var collectionView: UICollectionView = {
@@ -17,26 +21,45 @@ final class MainViewController: UIViewController {
         return collectionView
     }()
 
-    private let mockAdvs: [Advertisement] = [
-        Advertisement(id: "1", title: "iPhone 11", price: "55 000 ₽", location: "Москва 1", imageURL: "", createdDate: "2023-08-16"),
-        Advertisement(id: "2", title: "iPhone 12", price: "65 000 ₽", location: "Москва 2", imageURL: "", createdDate: "2023-08-17"),
-        Advertisement(id: "3", title: "iPhone 13", price: "75 000 ₽", location: "Москва 3", imageURL: "", createdDate: "2023-08-18"),
-        Advertisement(id: "4", title: "iPhone 14", price: "85 000 ₽", location: "Москва 4", imageURL: "", createdDate: "2023-08-19"),
-        Advertisement(id: "5", title: "iPhone 13 Pro", price: "95 000 ₽", location: "Москва 5", imageURL: "", createdDate: "2023-08-20"),
-        Advertisement(id: "6", title: "iPhone 14 Pro", price: "105 000 ₽", location: "Москва 6", imageURL: "", createdDate: "2023-08-21"),
-    ]
+    private var interactor: MainInteractorProtocol
 
+    private var cells: [Advertisement] = []
+
+    // MARK: - initializers
+    init(interactor: MainInteractorProtocol) {
+        self.interactor = interactor
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.dataSource = self
         collectionView.register(MainCollectionViewCell.self)
         configureView()
+        interactor.fetchData()
     }
 
     // MARK: - Private Methods
     private func configureView() {
         view.backgroundColor = .whiteLightDark
+        configureNavigationBarAppearance()
+        
+        view.addSubview(collectionView)
+
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+
+    private func configureNavigationBarAppearance() {
         navigationItem.title = S.MainViewController.title
         navigationController?.navigationBar.prefersLargeTitles = true
 
@@ -50,15 +73,6 @@ final class MainViewController: UIViewController {
             navigationController?.navigationBar.standardAppearance = appearance
             navigationController?.navigationBar.scrollEdgeAppearance = appearance
         }
-
-        view.addSubview(collectionView)
-
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
     }
 
     private func makeCollectionViewLayout() -> UICollectionViewCompositionalLayout {
@@ -78,13 +92,21 @@ final class MainViewController: UIViewController {
 // MARK: - UICollectionViewDataSource
 extension MainViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        mockAdvs.count
+        cells.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: MainCollectionViewCell = collectionView.dequeueReusableCell(indexPath: indexPath)
-        cell.configureCell(adv: mockAdvs[indexPath.row])
+        cell.configureCell(adv: cells[indexPath.row])
         return cell
+    }
+}
+
+// MARK: - MainViewControllerProtocol
+extension MainViewController: MainViewControllerProtocol {
+    func display(advs: [Advertisement]) {
+        cells = advs
+        collectionView.reloadData()
     }
 }
 
