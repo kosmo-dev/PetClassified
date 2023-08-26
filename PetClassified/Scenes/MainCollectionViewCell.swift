@@ -12,6 +12,7 @@ final class MainCollectionViewCell: UICollectionViewCell, ReuseIdentifying {
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
+        imageView.layer.cornerRadius = 10
         imageView.layer.masksToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -71,8 +72,8 @@ final class MainCollectionViewCell: UICollectionViewCell, ReuseIdentifying {
     }
 
     // MARK: - Public Methods
-    func configureCell(adv: Advertisement) {
-        imageView.image = UIImage(systemName: "photo")
+    func configureCell(adv: Advertisement, image: UIImage) {
+        imageView.image = image
         title.text = adv.title
         price.text = adv.price
         location.text = adv.location
