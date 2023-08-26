@@ -38,6 +38,18 @@ final class MainViewController: UIViewController {
     private func configureView() {
         view.backgroundColor = .whiteLightDark
         navigationItem.title = S.MainViewController.title
+        navigationController?.navigationBar.prefersLargeTitles = true
+
+        navigationController?.navigationBar.tintColor = .whiteLightDark
+
+        if #available(iOS 15, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = .whiteLightDark
+            appearance.shadowColor = nil
+            navigationController?.navigationBar.standardAppearance = appearance
+            navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        }
 
         view.addSubview(collectionView)
 
