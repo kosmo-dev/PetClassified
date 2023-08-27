@@ -82,7 +82,8 @@ final class MainViewController: UIViewController {
         navigationItem.title = S.MainViewController.title
         navigationController?.navigationBar.prefersLargeTitles = true
 
-        navigationController?.navigationBar.tintColor = .whiteLightDark
+        let backButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
 
         if #available(iOS 15, *) {
             let appearance = UINavigationBarAppearance()
@@ -145,6 +146,11 @@ extension MainViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let imageURL = cells[indexPath.row].imageURL
         interactor.fetchImage(for: imageURL)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let viewController = DetailViewController()
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
