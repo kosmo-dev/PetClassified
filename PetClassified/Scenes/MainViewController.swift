@@ -9,10 +9,17 @@ import UIKit
 
 protocol MainViewControllerProtocol: AnyObject {
     func display(advs: [Advertisement])
+    func displayLoading(emptyAdvs: [Advertisement])
     func updateCellWithImage(_ images: [String: UIImage], for indexPaths: [IndexPath])
+    func displayError(message: String)
 }
 
 final class MainViewController: UIViewController {
+    private enum Section {
+        case empty
+        case loaded
+    }
+
     // MARK: - Private Properties
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: makeCollectionViewLayout())
@@ -24,6 +31,8 @@ final class MainViewController: UIViewController {
 
     private var interactor: MainInteractorProtocol
 
+    private var emptyCells = 0
+    private let sections: [Section] = [.empty, .loaded]
     private var cells: [Advertisement] = []
     private var images: [String: UIImage] = [:]
 
@@ -44,6 +53,7 @@ final class MainViewController: UIViewController {
         collectionView.delegate = self
         collectionView.prefetchDataSource = self
         collectionView.register(MainCollectionViewCell.self)
+        collectionView.register(MainEmptyCollectionViewCell.self)
         configureView()
         interactor.fetchData()
     }
@@ -100,16 +110,33 @@ final class MainViewController: UIViewController {
 
 // MARK: - UICollectionViewDataSource
 extension MainViewController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return sections.count
+    }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        cells.count
+        let section = sections[section]
+        switch section {
+        case .empty:
+            return emptyCells
+        case .loaded:
+            return cells.count
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: MainCollectionViewCell = collectionView.dequeueReusableCell(indexPath: indexPath)
-        let adv = cells[indexPath.row]
-        let image = images[adv.imageURL] ?? UIImage(systemName: "photo") ?? UIImage()
-        cell.configureCell(adv: adv, image: image)
-        return cell
+        let section = sections[indexPath.section]
+        switch section {
+        case .empty:
+            let cell: MainEmptyCollectionViewCell = collectionView.dequeueReusableCell(indexPath: indexPath)
+            cell.configureCell()
+            return cell
+        case .loaded:
+            let cell: MainCollectionViewCell = collectionView.dequeueReusableCell(indexPath: indexPath)
+            let adv = cells[indexPath.row]
+            let image = images[adv.imageURL] ?? UIImage(named: "ImagePlaceholder") ?? UIImage()
+            cell.configureCell(adv: adv, image: image)
+            return cell
+        }
     }
 }
 
@@ -134,13 +161,42 @@ extension MainViewController: UICollectionViewDataSourcePrefetching {
 // MARK: - MainViewControllerProtocol
 extension MainViewController: MainViewControllerProtocol {
     func display(advs: [Advertisement]) {
+        emptyCells = 0
         cells = advs
-        collectionView.reloadData()
+        reloadCollectionViewWithAnimation()
     }
 
     func updateCellWithImage(_ images: [String : UIImage], for indexPaths: [IndexPath]) {
         self.images = images
         collectionView.reloadItems(at: indexPaths)
+    }
+
+    func displayLoading(emptyAdvs: [Advertisement]) {
+        emptyCells = emptyAdvs.count
+        cells = emptyAdvs
+        collectionView.reloadData()
+    }
+
+    func displayError(message: String) {
+        let alertController = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
+        let refreshAlertAction = UIAlertAction(title: "Попробовать снова", style: .default, handler: { [weak self] _ in
+            self?.interactor.fetchData()
+        })
+        alertController.addAction(refreshAlertAction)
+        present(alertController, animated: true)
+    }
+
+    private func reloadCollectionViewWithAnimation() {
+        CATransaction.begin()
+        UIView.animate(withDuration: 0.1) { [weak self] in
+            self?.collectionView.alpha = 0
+        } completion: { [weak self] _ in
+            self?.collectionView.reloadData()
+            UIView.animate(withDuration: 0.2) { [weak self] in
+                self?.collectionView.alpha = 1
+            }
+        }
+        CATransaction.commit()
     }
 }
 

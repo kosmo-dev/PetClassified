@@ -12,5 +12,6 @@ extension UIColor {
     static let whiteLightDark = UIColor(named: "WhiteLD") ?? UIColor.white
     static let grayUni = UIColor(named: "GrayUni") ?? UIColor.systemGray
     static let blueUni = UIColor(named: "BlueUni") ?? UIColor.systemBlue
+    static let redUni = UIColor(named: "RedUni") ?? UIColor.systemRed
     static let greenUni = UIColor(named: "GreenUni") ?? UIColor.systemGreen
 }
