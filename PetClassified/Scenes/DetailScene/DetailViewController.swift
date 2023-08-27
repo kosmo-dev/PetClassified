@@ -7,12 +7,19 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+final class DetailViewController: UIViewController {
+    // MARK: - Private Properties
+    private let detailView = DetailView()
 
     // MARK: - View Life Cycle
+    override func loadView() {
+        view = detailView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
+        detailView.configure()
     }
 
     // MARK: - Private Methods
@@ -23,6 +30,7 @@ class DetailViewController: UIViewController {
 
     private func configureNavigationBarAppearance() {
         navigationController?.navigationBar.tintColor = .blackLightDark
+        navigationItem.largeTitleDisplayMode = .never
 
         if #available(iOS 15, *) {
             let appearance = UINavigationBarAppearance()

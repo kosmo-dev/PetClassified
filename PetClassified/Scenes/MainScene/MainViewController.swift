@@ -79,7 +79,7 @@ final class MainViewController: UIViewController {
     }
 
     private func configureNavigationBarAppearance() {
-        navigationItem.title = S.MainViewController.title
+        navigationItem.title = TextStrings.MainViewController.title
         navigationController?.navigationBar.prefersLargeTitles = true
 
         let backButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
