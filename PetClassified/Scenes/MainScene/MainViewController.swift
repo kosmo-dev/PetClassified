@@ -149,7 +149,8 @@ extension MainViewController: UICollectionViewDelegate {
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let viewController = DetailViewController()
+        let id = cells[indexPath.row].id
+        let viewController = DetailViewController(id: id)
         navigationController?.pushViewController(viewController, animated: true)
     }
 }

@@ -158,16 +158,16 @@ final class DetailView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure() {
+    func configure(adv: DetailAdv) {
         detailImageView.image = UIImage(named: "ImagePlaceholder")
-        priceLabel.text = "55000 ₽"
-        title.text = "Смартфон Apple iPhone 12"
-        phoneNumber.text = "+7 (123) 456-7890"
-        email.text = "example1@example.com"
-        descriptionLabel.text = "Отличное состояние, последняя модель iPhone."
-        location.text = "Москва"
-        address.text = "ул. Пушкина, д. 1"
-        createdDate.text = "2023-08-16"
+        priceLabel.text = adv.price
+        title.text = adv.title
+        phoneNumber.text = adv.phoneNumber
+        email.text = adv.email
+        descriptionLabel.text = adv.description
+        location.text = adv.location
+        address.text = adv.address
+        createdDate.text = adv.createdDate
     }
 
     private func setupLayout() {
