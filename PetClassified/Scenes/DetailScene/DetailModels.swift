@@ -15,6 +15,7 @@ enum DetailModels {
 
     struct Response {
         let state: DetailViewState
+        let image: UIImage?
     }
 
     struct ViewModel {

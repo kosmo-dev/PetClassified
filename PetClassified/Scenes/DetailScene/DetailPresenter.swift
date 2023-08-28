@@ -16,16 +16,15 @@ final class DetailPresenter: DetailPresenterProtocol {
     weak var viewController: DetailViewControllerProtocol?
 
     func stateChanged(to state: DetailModels.Response) {
+        let imageToPresent = state.image ?? UIImage(named: "ImagePlaceholder") ?? UIImage()
         DispatchQueue.main.async {
             switch state.state {
-            case .loading(emptyAdv: let adv, image: let image):
-                let imageToPresent = image ?? UIImage(named: "ImagePlaceholder") ?? UIImage()
+            case .loading(emptyAdv: let adv):
                 self.viewController?.display(DetailModels.ViewModel(advertisement: adv, image: imageToPresent))
-            case .display(adv: let adv, image: let image):
-                let imageToPresent = image ?? UIImage(named: "ImagePlaceholder") ?? UIImage()
+            case .display(adv: let adv):
                 self.viewController?.display(DetailModels.ViewModel(advertisement: adv, image: imageToPresent))
             case .error(let error):
-                self.viewController?.displayError(DetailModels.ErrorMessage(message: "Error"))
+                self.viewController?.displayError(DetailModels.ErrorMessage(message: error.localizedDescription))
             }
         }
     }

@@ -8,7 +8,7 @@
 import UIKit
 
 enum DetailViewState {
-    case loading(emptyAdv: DetailAdv, image: UIImage?)
-    case display(adv: DetailAdv, image: UIImage?)
+    case loading(emptyAdv: DetailAdv)
+    case display(adv: DetailAdv)
     case error(Error)
 }
