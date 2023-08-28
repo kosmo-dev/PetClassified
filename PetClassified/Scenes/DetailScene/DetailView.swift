@@ -19,6 +19,7 @@ final class DetailView: UIView {
     private let detailImageView: UIImageView = {
         let detailImageView = UIImageView()
         detailImageView.contentMode = .scaleAspectFill
+        detailImageView.layer.cornerRadius = 10
         detailImageView.layer.masksToBounds = true
         detailImageView.translatesAutoresizingMaskIntoConstraints = false
         return detailImageView
@@ -129,21 +130,11 @@ final class DetailView: UIView {
         return createdDate
     }()
 
-    private let verticalStackView: UIStackView = {
-        let verticalStackView = UIStackView()
-        verticalStackView.axis = .vertical
-        verticalStackView.spacing = 8
-        verticalStackView.alignment = .leading
-        verticalStackView.distribution = .fill
-        verticalStackView.translatesAutoresizingMaskIntoConstraints = false
-        return verticalStackView
-    }()
-
     private let buttonsStackView: UIStackView = {
         let buttonsStackView = UIStackView()
         buttonsStackView.axis = .horizontal
         buttonsStackView.spacing = 8
-        buttonsStackView.distribution = .fill
+        buttonsStackView.distribution = .fillProportionally
         buttonsStackView.alignment = .center
         buttonsStackView.translatesAutoresizingMaskIntoConstraints = false
         return buttonsStackView
@@ -175,35 +166,50 @@ final class DetailView: UIView {
 
     private func setupLayout() {
         addSubview(scrollView)
-        [detailImageView, verticalStackView].forEach { scrollView.addSubview($0) }
         [phoneButton, emailButton].forEach { buttonsStackView.addArrangedSubview($0) }
-        [priceLabel, title, buttonsStackView, descriptionSeparatorLabel, descriptionLabel, contactsLabel, phoneNumber, email, location, address, createdDate].forEach { verticalStackView.addArrangedSubview($0) }
+        [detailImageView, priceLabel, title, buttonsStackView, descriptionSeparatorLabel, descriptionLabel, contactsLabel, phoneNumber, email, location, address, createdDate].forEach {
+            scrollView.addSubview($0)
+            makeLeadingTrailingWidthEqualConstraints(of: $0, relativeTo: scrollView)
+        }
+
+        let padding: CGFloat = 16
 
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
+            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
             scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
 
             detailImageView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            detailImageView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            detailImageView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             detailImageView.heightAnchor.constraint(equalToConstant: 250),
-            detailImageView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
 
-            verticalStackView.topAnchor.constraint(equalTo: detailImageView.bottomAnchor, constant: 8),
-            verticalStackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
-            verticalStackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16),
-            verticalStackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            priceLabel.topAnchor.constraint(equalTo: detailImageView.bottomAnchor, constant: padding / 2),
 
-            buttonsStackView.heightAnchor.constraint(equalToConstant: 60),
-            buttonsStackView.widthAnchor.constraint(equalTo: verticalStackView.widthAnchor),
+            title.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: padding / 2),
+
+            buttonsStackView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: padding),
             phoneButton.widthAnchor.constraint(equalTo: emailButton.widthAnchor),
             phoneButton.heightAnchor.constraint(equalToConstant: 50),
             emailButton.heightAnchor.constraint(equalToConstant: 50),
 
-            descriptionSeparatorLabel.heightAnchor.constraint(equalToConstant: 40),
-            contactsLabel.heightAnchor.constraint(equalToConstant: 30)
+            descriptionSeparatorLabel.topAnchor.constraint(equalTo: buttonsStackView.bottomAnchor, constant: padding),
+            descriptionLabel.topAnchor.constraint(equalTo: descriptionSeparatorLabel.bottomAnchor, constant: padding / 2),
+
+            contactsLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: padding),
+            phoneNumber.topAnchor.constraint(equalTo: contactsLabel.bottomAnchor, constant: padding / 2),
+            email.topAnchor.constraint(equalTo: phoneNumber.bottomAnchor, constant: padding / 4),
+
+            location.topAnchor.constraint(equalTo: email.bottomAnchor, constant: padding / 2),
+            address.topAnchor.constraint(equalTo: location.bottomAnchor, constant: padding / 4),
+
+            createdDate.topAnchor.constraint(equalTo: address.bottomAnchor, constant: padding / 2 ),
+            createdDate.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: padding)
         ])
+    }
+
+    private func makeLeadingTrailingWidthEqualConstraints(of childView: UIView, relativeTo parentView: UIView) {
+        childView.leadingAnchor.constraint(equalTo: parentView.leadingAnchor).isActive = true
+        childView.trailingAnchor.constraint(equalTo: parentView.trailingAnchor).isActive = true
+        childView.widthAnchor.constraint(equalTo: parentView.widthAnchor).isActive = true
     }
 }
