@@ -5,25 +5,27 @@
 //  Created by Вадим Кузьмин on 27.08.2023.
 //
 
-import Foundation
+import UIKit
 
 protocol DetailPresenterProtocol {
     var viewController: DetailViewControllerProtocol? { get set }
-    func stateChanged(to state: DetailViewState)
+    func stateChanged(to state: DetailModels.Response)
 }
 
 final class DetailPresenter: DetailPresenterProtocol {
     weak var viewController: DetailViewControllerProtocol?
 
-    func stateChanged(to state: DetailViewState) {
+    func stateChanged(to state: DetailModels.Response) {
         DispatchQueue.main.async {
-            switch state {
-            case .loading:
-                print("Loading")
-            case .display(let adv):
-                self.viewController?.display(adv: adv)
+            switch state.state {
+            case .loading(emptyAdv: let adv, image: let image):
+                let imageToPresent = image ?? UIImage(named: "ImagePlaceholder") ?? UIImage()
+                self.viewController?.display(DetailModels.ViewModel(advertisement: adv, image: imageToPresent))
+            case .display(adv: let adv, image: let image):
+                let imageToPresent = image ?? UIImage(named: "ImagePlaceholder") ?? UIImage()
+                self.viewController?.display(DetailModels.ViewModel(advertisement: adv, image: imageToPresent))
             case .error(let error):
-                print(error)
+                self.viewController?.displayError(DetailModels.ErrorMessage(message: "Error"))
             }
         }
     }

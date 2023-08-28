@@ -149,8 +149,9 @@ extension MainViewController: UICollectionViewDelegate {
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let id = cells[indexPath.row].id
-        let viewController = DetailViewController(id: id)
+        let adv = cells[indexPath.row]
+        let image = images[adv.imageURL]
+        let viewController = DetailViewController(advertisement: adv, image: image)
         navigationController?.pushViewController(viewController, animated: true)
     }
 }

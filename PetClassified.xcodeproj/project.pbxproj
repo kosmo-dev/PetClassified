@@ -28,6 +28,7 @@
 		3D8262AE2A9BE11900B5CA15 /* DetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8262AD2A9BE11900B5CA15 /* DetailInteractor.swift */; };
 		3D8262B02A9BE12A00B5CA15 /* DetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8262AF2A9BE12A00B5CA15 /* DetailPresenter.swift */; };
 		3D8262B22A9BE3E100B5CA15 /* DetailViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8262B12A9BE3E100B5CA15 /* DetailViewState.swift */; };
+		3D8262B42A9C907300B5CA15 /* DetailModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8262B32A9C907300B5CA15 /* DetailModels.swift */; };
 		3DC9DF5A2A979106008E394F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC9DF592A979106008E394F /* AppDelegate.swift */; };
 		3DC9DF5C2A979106008E394F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC9DF5B2A979106008E394F /* SceneDelegate.swift */; };
 		3DC9DF5E2A979106008E394F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC9DF5D2A979106008E394F /* MainViewController.swift */; };
@@ -57,6 +58,7 @@
 		3D8262AD2A9BE11900B5CA15 /* DetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInteractor.swift; sourceTree = "<group>"; };
 		3D8262AF2A9BE12A00B5CA15 /* DetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresenter.swift; sourceTree = "<group>"; };
 		3D8262B12A9BE3E100B5CA15 /* DetailViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewState.swift; sourceTree = "<group>"; };
+		3D8262B32A9C907300B5CA15 /* DetailModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModels.swift; sourceTree = "<group>"; };
 		3DC9DF562A979106008E394F /* PetClassified.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PetClassified.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DC9DF592A979106008E394F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3DC9DF5B2A979106008E394F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 				3D8262AD2A9BE11900B5CA15 /* DetailInteractor.swift */,
 				3D8262AF2A9BE12A00B5CA15 /* DetailPresenter.swift */,
 				3D8262B12A9BE3E100B5CA15 /* DetailViewState.swift */,
+				3D8262B32A9C907300B5CA15 /* DetailModels.swift */,
 			);
 			path = DetailScene;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 			files = (
 				3D8262912A9A075F00B5CA15 /* NetworkRequest.swift in Sources */,
 				3D8262AE2A9BE11900B5CA15 /* DetailInteractor.swift in Sources */,
+				3D8262B42A9C907300B5CA15 /* DetailModels.swift in Sources */,
 				3DC9DF5E2A979106008E394F /* MainViewController.swift in Sources */,
 				3D82629A2A9A36B600B5CA15 /* APIRequests.swift in Sources */,
 				3D8262802A99D96200B5CA15 /* Colors.swift in Sources */,

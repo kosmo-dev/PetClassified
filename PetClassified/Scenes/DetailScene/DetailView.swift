@@ -159,7 +159,6 @@ final class DetailView: UIView {
     }
 
     func configure(adv: DetailAdv) {
-        detailImageView.image = UIImage(named: "ImagePlaceholder")
         priceLabel.text = adv.price
         title.text = adv.title
         phoneNumber.text = adv.phoneNumber
@@ -168,6 +167,10 @@ final class DetailView: UIView {
         location.text = adv.location
         address.text = adv.address
         createdDate.text = adv.createdDate
+    }
+
+    func setImage(_ image: UIImage) {
+        detailImageView.image = image
     }
 
     private func setupLayout() {

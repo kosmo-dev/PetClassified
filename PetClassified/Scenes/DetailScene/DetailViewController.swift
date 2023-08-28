@@ -8,7 +8,8 @@
 import UIKit
 
 protocol DetailViewControllerProtocol: AnyObject {
-    func display(adv: DetailAdv)
+    func display(_ viewModel: DetailModels.ViewModel)
+    func displayError(_ errorMessage: DetailModels.ErrorMessage)
 }
 
 final class DetailViewController: UIViewController {
@@ -16,10 +17,13 @@ final class DetailViewController: UIViewController {
     private let detailView = DetailView()
     private var interactor: DetailInteractorProtocol?
 
-    private let id: String
+    private let advertisement: Advertisement
+    private let image: UIImage?
 
-    init(id: String) {
-        self.id = id
+
+    init(advertisement: Advertisement, image: UIImage?) {
+        self.advertisement = advertisement
+        self.image = image
         super.init(nibName: nil, bundle: nil)
         setup()
     }
@@ -36,7 +40,8 @@ final class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
-        interactor?.fetchData(for: id)
+        let request = DetailModels.Request(advertisement: advertisement, image: image)
+        interactor?.fetchData(request)
     }
 
     // MARK: - Private Methods
@@ -69,7 +74,12 @@ final class DetailViewController: UIViewController {
 
 // MARK: - DetailViewControllerProtocol
 extension DetailViewController: DetailViewControllerProtocol {
-    func display(adv: DetailAdv) {
-        detailView.configure(adv: adv)
+    func display(_ viewModel: DetailModels.ViewModel) {
+        detailView.configure(adv: viewModel.advertisement)
+        detailView.setImage(viewModel.image)
+    }
+
+    func displayError(_ errorMessage: DetailModels.ErrorMessage) {
+        // TODO: error handling
     }
 }
