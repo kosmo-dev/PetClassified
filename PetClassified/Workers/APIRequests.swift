@@ -12,7 +12,12 @@ struct AdvertisementRequest: NetworkRequest {
 }
 
 struct DetailRequest: NetworkRequest {
-    var endpoint: URL?
+    var id: String
+    private let path: String = "https://www.avito.st/s/interns-ios/details/"
+    var endpoint: URL? {
+        let string = "\(path)\(id).json"
+        return URL(string: string)
+    }
 }
 
 struct ImageRequest: NetworkRequest {

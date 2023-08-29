@@ -7,8 +7,14 @@
 
 import Foundation
 
-struct S {
+struct TextStrings {
     struct MainViewController {
         static let title = "Объявления"
+    }
+    struct DetailView {
+        static let descriptionSeparatorLabel = "Описание"
+        static let contactsLabel = "Контакты:"
+        static let phoneButton = "Позвонить"
+        static let emailButton = "Написать"
     }
 }

@@ -79,10 +79,11 @@ final class MainViewController: UIViewController {
     }
 
     private func configureNavigationBarAppearance() {
-        navigationItem.title = S.MainViewController.title
+        navigationItem.title = TextStrings.MainViewController.title
         navigationController?.navigationBar.prefersLargeTitles = true
 
-        navigationController?.navigationBar.tintColor = .whiteLightDark
+        let backButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
 
         if #available(iOS 15, *) {
             let appearance = UINavigationBarAppearance()
@@ -95,15 +96,17 @@ final class MainViewController: UIViewController {
     }
 
     private func makeCollectionViewLayout() -> UICollectionViewCompositionalLayout {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/2), heightDimension: .fractionalHeight(1))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 4, bottom: 8, trailing: 4)
+        let layout = UICollectionViewCompositionalLayout { section, environment in
+            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/2), heightDimension: .fractionalHeight(1))
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            item.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 4, bottom: 8, trailing: 4)
 
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(300))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(300))
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
-        let section = NSCollectionLayoutSection(group: group)
-        let layout = UICollectionViewCompositionalLayout(section: section)
+            let section = NSCollectionLayoutSection(group: group)
+            return section
+        }
         return layout
     }
 }
@@ -146,6 +149,13 @@ extension MainViewController: UICollectionViewDelegate {
         let imageURL = cells[indexPath.row].imageURL
         interactor.fetchImage(for: imageURL)
     }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let adv = cells[indexPath.row]
+        let image = images[adv.imageURL]
+        let viewController = DetailViewController(advertisement: adv, image: image)
+        navigationController?.pushViewController(viewController, animated: true)
+    }
 }
 
 // MARK: - UICollectionViewDataSourcePrefetching
@@ -187,16 +197,9 @@ extension MainViewController: MainViewControllerProtocol {
     }
 
     private func reloadCollectionViewWithAnimation() {
-        CATransaction.begin()
-        UIView.animate(withDuration: 0.1) { [weak self] in
-            self?.collectionView.alpha = 0
-        } completion: { [weak self] _ in
-            self?.collectionView.reloadData()
-            UIView.animate(withDuration: 0.2) { [weak self] in
-                self?.collectionView.alpha = 1
-            }
-        }
-        CATransaction.commit()
+        UIView.transition(with: collectionView, duration: 0.3, options: .transitionCrossDissolve, animations: {
+            self.collectionView.reloadData()
+        }, completion: nil)
     }
 }
 

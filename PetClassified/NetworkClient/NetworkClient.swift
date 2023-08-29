@@ -73,7 +73,6 @@ struct DefaultNetworkClient: NetworkClient {
     // MARK: - Private Methods
     private func make(request: NetworkRequest) -> URLRequest? {
         guard let endpoint = request.endpoint else {
-            assertionFailure("Empty endpoint")
             return nil
         }
 
