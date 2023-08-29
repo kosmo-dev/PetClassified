@@ -21,6 +21,7 @@ enum DetailModels {
     struct ViewModel {
         let advertisement: DetailAdv
         let image: UIImage
+        let isLoaded: Bool
     }
 
     struct ErrorMessage {

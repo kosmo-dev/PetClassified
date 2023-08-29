@@ -68,7 +68,6 @@ final class DetailView: UIView {
 
     private let phoneButton: UIButton = {
         let phoneButton = UIButton()
-        phoneButton.setTitle(TextStrings.DetailView.phoneButton, for: .normal)
         phoneButton.setTitleColor(.whiteLightDark, for: .normal)
         phoneButton.backgroundColor = .greenUni
         phoneButton.layer.cornerRadius = 16
@@ -79,7 +78,6 @@ final class DetailView: UIView {
 
     private let emailButton: UIButton = {
         let emailButton = UIButton()
-        emailButton.setTitle(TextStrings.DetailView.emailButton, for: .normal)
         emailButton.setTitleColor(.whiteLightDark, for: .normal)
         emailButton.backgroundColor = .blueUni
         emailButton.layer.cornerRadius = 16
@@ -140,6 +138,19 @@ final class DetailView: UIView {
         return buttonsStackView
     }()
 
+    private let emptyView: UIView = {
+        let emptyView = UIView()
+        emptyView.backgroundColor = .clear
+        emptyView.translatesAutoresizingMaskIntoConstraints = false
+        return emptyView
+    }()
+
+    private lazy var emptyViewAnimatableGradient = makeGradientLayer()
+    private lazy var emailButtonAnimatableGradient = makeGradientLayer()
+    private lazy var phoneButtonAnimatableGradient = makeGradientLayer()
+
+    private var animationLayers = Set<CALayer>()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
@@ -149,7 +160,14 @@ final class DetailView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(adv: DetailAdv) {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        emptyViewAnimatableGradient.frame = emptyView.bounds
+        emailButtonAnimatableGradient.frame = emailButton.bounds
+        phoneButtonAnimatableGradient.frame = phoneButton.bounds
+    }
+
+    func configure(adv: DetailAdv, isLoaded: Bool) {
         priceLabel.text = adv.price
         title.text = adv.title
         phoneNumber.text = adv.phoneNumber
@@ -158,6 +176,11 @@ final class DetailView: UIView {
         location.text = adv.location
         address.text = adv.address
         createdDate.text = adv.createdDate
+        setNeedsLayout()
+        layoutIfNeeded()
+        if isLoaded {
+            configureLoadedView()
+        }
     }
 
     func setImage(_ image: UIImage) {
@@ -167,9 +190,16 @@ final class DetailView: UIView {
     private func setupLayout() {
         addSubview(scrollView)
         [phoneButton, emailButton].forEach { buttonsStackView.addArrangedSubview($0) }
-        [detailImageView, priceLabel, title, buttonsStackView, descriptionSeparatorLabel, descriptionLabel, contactsLabel, phoneNumber, email, location, address, createdDate].forEach {
+        [detailImageView, priceLabel, title, buttonsStackView, descriptionSeparatorLabel, emptyView, descriptionLabel, contactsLabel, phoneNumber, email, location, address, createdDate].forEach {
             scrollView.addSubview($0)
             makeLeadingTrailingWidthEqualConstraints(of: $0, relativeTo: scrollView)
+        }
+
+        emptyView.layer.addSublayer(emptyViewAnimatableGradient)
+        emailButton.layer.addSublayer(emailButtonAnimatableGradient)
+        phoneButton.layer.addSublayer(phoneButtonAnimatableGradient)
+        [emptyViewAnimatableGradient, emailButtonAnimatableGradient, phoneButtonAnimatableGradient].forEach {
+            setAnimatableGradient($0)
         }
 
         let padding: CGFloat = 16
@@ -195,7 +225,10 @@ final class DetailView: UIView {
             descriptionSeparatorLabel.topAnchor.constraint(equalTo: buttonsStackView.bottomAnchor, constant: padding),
             descriptionLabel.topAnchor.constraint(equalTo: descriptionSeparatorLabel.bottomAnchor, constant: padding / 2),
 
-            contactsLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: padding),
+            emptyView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor),
+            emptyView.heightAnchor.constraint(equalToConstant: 50),
+
+            contactsLabel.topAnchor.constraint(equalTo: emptyView.bottomAnchor, constant: padding),
             phoneNumber.topAnchor.constraint(equalTo: contactsLabel.bottomAnchor, constant: padding / 2),
             email.topAnchor.constraint(equalTo: phoneNumber.bottomAnchor, constant: padding / 4),
 
@@ -211,5 +244,43 @@ final class DetailView: UIView {
         childView.leadingAnchor.constraint(equalTo: parentView.leadingAnchor).isActive = true
         childView.trailingAnchor.constraint(equalTo: parentView.trailingAnchor).isActive = true
         childView.widthAnchor.constraint(equalTo: parentView.widthAnchor).isActive = true
+    }
+
+    private func makeGradientLayer() -> CAGradientLayer {
+        let animatableGradient = CAGradientLayer()
+        animatableGradient.locations = [0, 0.1, 0.3]
+        animatableGradient.colors = [
+            UIColor(red: 0.964, green: 0.964, blue: 0.964, alpha: 1).cgColor,
+            UIColor(red: 0.905, green: 0.905, blue: 0.905, alpha: 1).cgColor,
+            UIColor(red: 0.807, green: 0.807, blue: 0.807, alpha: 1).cgColor
+        ]
+        animatableGradient.startPoint = CGPoint(x: 0, y: 0.5)
+        animatableGradient.endPoint = CGPoint(x: 1, y: 0.5)
+        return animatableGradient
+    }
+
+    private func setAnimatableGradient(_ layer: CAGradientLayer) {
+        animationLayers.insert(layer)
+
+        let gradientChangeAnimation = CABasicAnimation(keyPath: "locations")
+        gradientChangeAnimation.duration = 2
+        gradientChangeAnimation.repeatCount = .infinity
+        gradientChangeAnimation.fromValue = [0, 0.1, 0.3]
+        gradientChangeAnimation.toValue = [0, 0.8, 1]
+        layer.add(gradientChangeAnimation, forKey: "locationsChange")
+    }
+
+    private func removeAnimatableGradient() {
+        animationLayers.forEach { layer in
+            layer.removeFromSuperlayer()
+        }
+    }
+
+    private func configureLoadedView() {
+        removeAnimatableGradient()
+        emptyView.removeFromSuperview()
+        contactsLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 16).isActive = true
+        emailButton.setTitle(TextStrings.DetailView.emailButton, for: .normal)
+        phoneButton.setTitle(TextStrings.DetailView.phoneButton, for: .normal)
     }
 }

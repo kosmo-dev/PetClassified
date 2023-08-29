@@ -24,7 +24,6 @@ final class DetailInteractor: DetailInteractorProtocol {
     }
 
     func fetchData(_ request: DetailModels.Request) {
-        responseWithPrefetchedData(request)
         networkWorker.send(request: DetailRequest(id: request.advertisement.id), type: DetailAdv.self, id: request.advertisement.id) { [weak self] result in
             guard let self else { return }
             switch result {
@@ -37,6 +36,7 @@ final class DetailInteractor: DetailInteractorProtocol {
                 self.presenter?.stateChanged(to: DetailModels.Response(state: state, image: image))
             }
         }
+        responseWithPrefetchedData(request)
     }
 
     func responseWithPrefetchedData(_ request: DetailModels.Request) {

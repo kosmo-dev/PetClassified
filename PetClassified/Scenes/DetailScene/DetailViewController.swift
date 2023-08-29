@@ -75,7 +75,7 @@ final class DetailViewController: UIViewController {
 // MARK: - DetailViewControllerProtocol
 extension DetailViewController: DetailViewControllerProtocol {
     func display(_ viewModel: DetailModels.ViewModel) {
-        detailView.configure(adv: viewModel.advertisement)
+        detailView.configure(adv: viewModel.advertisement, isLoaded: viewModel.isLoaded)
         detailView.setImage(viewModel.image)
     }
 

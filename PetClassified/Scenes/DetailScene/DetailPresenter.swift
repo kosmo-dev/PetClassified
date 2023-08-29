@@ -20,9 +20,9 @@ final class DetailPresenter: DetailPresenterProtocol {
         DispatchQueue.main.async {
             switch state.state {
             case .loading(emptyAdv: let adv):
-                self.viewController?.display(DetailModels.ViewModel(advertisement: adv, image: imageToPresent))
+                self.viewController?.display(DetailModels.ViewModel(advertisement: adv, image: imageToPresent, isLoaded: false))
             case .display(adv: let adv):
-                self.viewController?.display(DetailModels.ViewModel(advertisement: adv, image: imageToPresent))
+                self.viewController?.display(DetailModels.ViewModel(advertisement: adv, image: imageToPresent, isLoaded: true))
             case .error(let error):
                 self.viewController?.displayError(DetailModels.ErrorMessage(message: error.localizedDescription))
             }
