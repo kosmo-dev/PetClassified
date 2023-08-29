@@ -211,9 +211,9 @@ final class DetailView: UIView {
             scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
 
             detailImageView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            detailImageView.heightAnchor.constraint(equalToConstant: 250),
+            detailImageView.heightAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 0.9),
 
-            priceLabel.topAnchor.constraint(equalTo: detailImageView.bottomAnchor, constant: padding / 2),
+            priceLabel.topAnchor.constraint(equalTo: detailImageView.bottomAnchor, constant: padding),
 
             title.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: padding / 2),
 
