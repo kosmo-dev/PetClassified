@@ -17,7 +17,8 @@ final class DetailPresenter: DetailPresenterProtocol {
 
     func stateChanged(to state: DetailModels.Response) {
         let imageToPresent = state.image ?? UIImage(named: "ImagePlaceholder") ?? UIImage()
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
             switch state.state {
             case .loading(emptyAdv: let adv):
                 self.viewController?.display(DetailModels.ViewModel(advertisement: adv, image: imageToPresent, isLoaded: false))
