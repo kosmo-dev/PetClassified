@@ -26,8 +26,8 @@ final class MainInteractor: MainInteractorProtocol {
     private var images: [String: UIImage] = [:]
 
     // MARK: - Initializator
-    init() {
-        networkWorker = NetworkWorker()
+    init(networkWorker: NetworkWorkerProtocol) {
+        self.networkWorker = networkWorker
     }
 
     // MARK: - Public Methods

@@ -7,11 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D18E1B32A9FE21D00502A04 /* DetailPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D18E1B22A9FE21D00502A04 /* DetailPresenterTests.swift */; };
+		3D18E1B52A9FE31C00502A04 /* DetailViewControllerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D18E1B42A9FE31C00502A04 /* DetailViewControllerSpy.swift */; };
+		3D2E70A12A9FD55300359EC3 /* DetailInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2E70A02A9FD55300359EC3 /* DetailInteractorTests.swift */; };
+		3D2E70A32A9FD69B00359EC3 /* DetailPresenterSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2E70A22A9FD69B00359EC3 /* DetailPresenterSpy.swift */; };
+		3D2E70A52A9FD7E200359EC3 /* DetailNetworkWorkerStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2E70A42A9FD7E200359EC3 /* DetailNetworkWorkerStub.swift */; };
+		3D2E70A72A9FD82400359EC3 /* DetailAdvMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2E70A62A9FD82400359EC3 /* DetailAdvMock.swift */; };
 		3D7874F52A9E4F46001D69CC /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7874F42A9E4F46001D69CC /* ErrorView.swift */; };
 		3D7874F72A9E6E2B001D69CC /* ErrorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7874F62A9E6E2B001D69CC /* ErrorController.swift */; };
 		3D7874FA2A9E7808001D69CC /* NetworkClientErrorEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7874F92A9E7808001D69CC /* NetworkClientErrorEnum.swift */; };
 		3D7874FC2A9F3B60001D69CC /* MainModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7874FB2A9F3B60001D69CC /* MainModels.swift */; };
 		3D7875012A9F4F3D001D69CC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3D7875032A9F4F3D001D69CC /* Localizable.strings */; };
+		3D78750C2A9F52A1001D69CC /* MainInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D78750B2A9F52A1001D69CC /* MainInteractorTests.swift */; };
+		3D7875132A9F5632001D69CC /* MainNetworkWorkerStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7875122A9F5632001D69CC /* MainNetworkWorkerStub.swift */; };
+		3D7875152A9F58DA001D69CC /* MainPresenterSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7875142A9F58DA001D69CC /* MainPresenterSpy.swift */; };
+		3D78751A2A9F6074001D69CC /* AdvertisementsMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7875192A9F6074001D69CC /* AdvertisementsMock.swift */; };
+		3D78751C2A9F7B55001D69CC /* MainPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D78751B2A9F7B55001D69CC /* MainPresenterTests.swift */; };
+		3D78751E2A9F805A001D69CC /* MainViewControllerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D78751D2A9F805A001D69CC /* MainViewControllerSpy.swift */; };
 		3D82627A2A99D4C300B5CA15 /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8262792A99D4C300B5CA15 /* MainCollectionViewCell.swift */; };
 		3D82627D2A99D52400B5CA15 /* CellReusingUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D82627C2A99D52400B5CA15 /* CellReusingUtils.swift */; };
 		3D8262802A99D96200B5CA15 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D82627F2A99D96200B5CA15 /* Colors.swift */; };
@@ -41,7 +53,23 @@
 		3DC9DF662A979107008E394F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DC9DF642A979107008E394F /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		3D78750D2A9F52A1001D69CC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3DC9DF4E2A979106008E394F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3DC9DF552A979106008E394F;
+			remoteInfo = PetClassified;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		3D18E1B22A9FE21D00502A04 /* DetailPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresenterTests.swift; sourceTree = "<group>"; };
+		3D18E1B42A9FE31C00502A04 /* DetailViewControllerSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewControllerSpy.swift; sourceTree = "<group>"; };
+		3D2E70A02A9FD55300359EC3 /* DetailInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInteractorTests.swift; sourceTree = "<group>"; };
+		3D2E70A22A9FD69B00359EC3 /* DetailPresenterSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresenterSpy.swift; sourceTree = "<group>"; };
+		3D2E70A42A9FD7E200359EC3 /* DetailNetworkWorkerStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailNetworkWorkerStub.swift; sourceTree = "<group>"; };
+		3D2E70A62A9FD82400359EC3 /* DetailAdvMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAdvMock.swift; sourceTree = "<group>"; };
 		3D7874F42A9E4F46001D69CC /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		3D7874F62A9E6E2B001D69CC /* ErrorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorController.swift; sourceTree = "<group>"; };
 		3D7874F92A9E7808001D69CC /* NetworkClientErrorEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClientErrorEnum.swift; sourceTree = "<group>"; };
@@ -49,6 +77,13 @@
 		3D7874FD2A9F4F0E001D69CC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		3D7875022A9F4F3D001D69CC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3D7875042A9F4F41001D69CC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		3D7875092A9F52A1001D69CC /* PetClassifiedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PetClassifiedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D78750B2A9F52A1001D69CC /* MainInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInteractorTests.swift; sourceTree = "<group>"; };
+		3D7875122A9F5632001D69CC /* MainNetworkWorkerStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNetworkWorkerStub.swift; sourceTree = "<group>"; };
+		3D7875142A9F58DA001D69CC /* MainPresenterSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenterSpy.swift; sourceTree = "<group>"; };
+		3D7875192A9F6074001D69CC /* AdvertisementsMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementsMock.swift; sourceTree = "<group>"; };
+		3D78751B2A9F7B55001D69CC /* MainPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenterTests.swift; sourceTree = "<group>"; };
+		3D78751D2A9F805A001D69CC /* MainViewControllerSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerSpy.swift; sourceTree = "<group>"; };
 		3D8262792A99D4C300B5CA15 /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
 		3D82627C2A99D52400B5CA15 /* CellReusingUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellReusingUtils.swift; sourceTree = "<group>"; };
 		3D82627F2A99D96200B5CA15 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -81,6 +116,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		3D7875062A9F52A1001D69CC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3DC9DF532A979106008E394F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -106,6 +148,33 @@
 				3D7875032A9F4F3D001D69CC /* Localizable.strings */,
 			);
 			path = Localization;
+			sourceTree = "<group>";
+		};
+		3D78750A2A9F52A1001D69CC /* PetClassifiedTests */ = {
+			isa = PBXGroup;
+			children = (
+				3D78750B2A9F52A1001D69CC /* MainInteractorTests.swift */,
+				3D78751B2A9F7B55001D69CC /* MainPresenterTests.swift */,
+				3D2E70A02A9FD55300359EC3 /* DetailInteractorTests.swift */,
+				3D18E1B22A9FE21D00502A04 /* DetailPresenterTests.swift */,
+				3D7875162A9F5C01001D69CC /* Helpers */,
+			);
+			path = PetClassifiedTests;
+			sourceTree = "<group>";
+		};
+		3D7875162A9F5C01001D69CC /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				3D7875122A9F5632001D69CC /* MainNetworkWorkerStub.swift */,
+				3D2E70A22A9FD69B00359EC3 /* DetailPresenterSpy.swift */,
+				3D2E70A42A9FD7E200359EC3 /* DetailNetworkWorkerStub.swift */,
+				3D7875142A9F58DA001D69CC /* MainPresenterSpy.swift */,
+				3D7875192A9F6074001D69CC /* AdvertisementsMock.swift */,
+				3D2E70A62A9FD82400359EC3 /* DetailAdvMock.swift */,
+				3D78751D2A9F805A001D69CC /* MainViewControllerSpy.swift */,
+				3D18E1B42A9FE31C00502A04 /* DetailViewControllerSpy.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		3D8262782A99BC7F00B5CA15 /* Scenes */ = {
@@ -201,6 +270,7 @@
 			isa = PBXGroup;
 			children = (
 				3DC9DF582A979106008E394F /* PetClassified */,
+				3D78750A2A9F52A1001D69CC /* PetClassifiedTests */,
 				3DC9DF572A979106008E394F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -209,6 +279,7 @@
 			isa = PBXGroup;
 			children = (
 				3DC9DF562A979106008E394F /* PetClassified.app */,
+				3D7875092A9F52A1001D69CC /* PetClassifiedTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -238,6 +309,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		3D7875082A9F52A1001D69CC /* PetClassifiedTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3D7875112A9F52A1001D69CC /* Build configuration list for PBXNativeTarget "PetClassifiedTests" */;
+			buildPhases = (
+				3D7875052A9F52A1001D69CC /* Sources */,
+				3D7875062A9F52A1001D69CC /* Frameworks */,
+				3D7875072A9F52A1001D69CC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3D78750E2A9F52A1001D69CC /* PBXTargetDependency */,
+			);
+			name = PetClassifiedTests;
+			productName = PetClassifiedTests;
+			productReference = 3D7875092A9F52A1001D69CC /* PetClassifiedTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		3DC9DF552A979106008E394F /* PetClassified */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3DC9DF6A2A979107008E394F /* Build configuration list for PBXNativeTarget "PetClassified" */;
@@ -265,6 +354,10 @@
 				LastSwiftUpdateCheck = 1430;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
+					3D7875082A9F52A1001D69CC = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = 3DC9DF552A979106008E394F;
+					};
 					3DC9DF552A979106008E394F = {
 						CreatedOnToolsVersion = 14.3.1;
 					};
@@ -285,11 +378,19 @@
 			projectRoot = "";
 			targets = (
 				3DC9DF552A979106008E394F /* PetClassified */,
+				3D7875082A9F52A1001D69CC /* PetClassifiedTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		3D7875072A9F52A1001D69CC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3DC9DF542A979106008E394F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -303,6 +404,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3D7875052A9F52A1001D69CC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3D78751E2A9F805A001D69CC /* MainViewControllerSpy.swift in Sources */,
+				3D2E70A12A9FD55300359EC3 /* DetailInteractorTests.swift in Sources */,
+				3D18E1B52A9FE31C00502A04 /* DetailViewControllerSpy.swift in Sources */,
+				3D2E70A72A9FD82400359EC3 /* DetailAdvMock.swift in Sources */,
+				3D2E70A32A9FD69B00359EC3 /* DetailPresenterSpy.swift in Sources */,
+				3D2E70A52A9FD7E200359EC3 /* DetailNetworkWorkerStub.swift in Sources */,
+				3D7875152A9F58DA001D69CC /* MainPresenterSpy.swift in Sources */,
+				3D7875132A9F5632001D69CC /* MainNetworkWorkerStub.swift in Sources */,
+				3D78751C2A9F7B55001D69CC /* MainPresenterTests.swift in Sources */,
+				3D78750C2A9F52A1001D69CC /* MainInteractorTests.swift in Sources */,
+				3D78751A2A9F6074001D69CC /* AdvertisementsMock.swift in Sources */,
+				3D18E1B32A9FE21D00502A04 /* DetailPresenterTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3DC9DF522A979106008E394F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -341,6 +461,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		3D78750E2A9F52A1001D69CC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3DC9DF552A979106008E394F /* PetClassified */;
+			targetProxy = 3D78750D2A9F52A1001D69CC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		3D7875032A9F4F3D001D69CC /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
@@ -363,6 +491,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		3D78750F2A9F52A1001D69CC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.VadimKuzmin.PetClassifiedTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PetClassified.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PetClassified";
+			};
+			name = Debug;
+		};
+		3D7875102A9F52A1001D69CC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.VadimKuzmin.PetClassifiedTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PetClassified.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PetClassified";
+			};
+			name = Release;
+		};
 		3DC9DF682A979107008E394F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -544,6 +712,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3D7875112A9F52A1001D69CC /* Build configuration list for PBXNativeTarget "PetClassifiedTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3D78750F2A9F52A1001D69CC /* Debug */,
+				3D7875102A9F52A1001D69CC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		3DC9DF512A979106008E394F /* Build configuration list for PBXProject "PetClassified" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -156,7 +156,8 @@ extension MainViewController: UICollectionViewDelegate {
         guard emptyCells == 0 else { return }
         let adv = cells[indexPath.row]
         let image = images[adv.imageURL]
-        let detailInteractor = DetailInteractor()
+        let networkWorker = NetworkWorker()
+        let detailInteractor = DetailInteractor(networkWorker: networkWorker)
         let detailPresenter = DetailPresenter()
         let viewController = DetailViewController(advertisement: adv, image: image, interactor: detailInteractor)
         detailInteractor.presenter = detailPresenter
