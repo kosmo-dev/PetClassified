@@ -156,7 +156,11 @@ extension MainViewController: UICollectionViewDelegate {
         guard emptyCells == 0 else { return }
         let adv = cells[indexPath.row]
         let image = images[adv.imageURL]
-        let viewController = DetailViewController(advertisement: adv, image: image)
+        let detailInteractor = DetailInteractor()
+        let detailPresenter = DetailPresenter()
+        let viewController = DetailViewController(advertisement: adv, image: image, interactor: detailInteractor)
+        detailInteractor.presenter = detailPresenter
+        detailPresenter.viewController = viewController
         navigationController?.pushViewController(viewController, animated: true)
     }
 }
