@@ -30,6 +30,7 @@ final class MainViewController: UIViewController {
     }()
 
     private var interactor: MainInteractorProtocol
+    private lazy var errorController = ErrorController(view: self.view)
 
     private var emptyCells = 0
     private let sections: [Section] = [.empty, .loaded]
@@ -52,6 +53,7 @@ final class MainViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.prefetchDataSource = self
+        errorController.delegate = self
         collectionView.register(MainCollectionViewCell.self)
         collectionView.register(MainEmptyCollectionViewCell.self)
         configureView()
@@ -151,6 +153,7 @@ extension MainViewController: UICollectionViewDelegate {
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard emptyCells == 0 else { return }
         let adv = cells[indexPath.row]
         let image = images[adv.imageURL]
         let viewController = DetailViewController(advertisement: adv, image: image)
@@ -188,18 +191,21 @@ extension MainViewController: MainViewControllerProtocol {
     }
 
     func displayError(message: String) {
-        let alertController = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
-        let refreshAlertAction = UIAlertAction(title: "Попробовать снова", style: .default, handler: { [weak self] _ in
-            self?.interactor.fetchData()
-        })
-        alertController.addAction(refreshAlertAction)
-        present(alertController, animated: true)
+        errorController.showErrorView(with: message)
     }
 
     private func reloadCollectionViewWithAnimation() {
-        UIView.transition(with: collectionView, duration: 0.3, options: .transitionCrossDissolve, animations: {
+        UIView.transition(with: collectionView, duration: 0.2, options: .transitionCrossDissolve, animations: {
             self.collectionView.reloadData()
         }, completion: nil)
+    }
+}
+
+extension MainViewController: ErrorControllerDelegate {
+    func didTapTryAgainButton() {
+        errorController.removeErrorView { [weak self] in
+            self?.interactor.fetchData()
+        }
     }
 }
 

@@ -17,4 +17,13 @@ struct TextStrings {
         static let phoneButton = "Позвонить"
         static let emailButton = "Написать"
     }
+    struct ErrorView {
+        static let retryButton = "Попробовать снова"
+    }
+    struct ErrorMessages {
+        static let httpStatusCode = "Ошибка соединения. Код ошибки: "
+        static let urlRequestError = "Ошибка запроса"
+        static let urlSessionError = "Нет сети"
+        static let parsingError = "Ошибка. Свяжитесь с разработчиком. Код ошибки 0"
+    }
 }

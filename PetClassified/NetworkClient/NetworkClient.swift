@@ -7,13 +7,6 @@
 
 import Foundation
 
-enum NetworkClientError: Error {
-    case httpStatusCode(Int)
-    case urlRequestError(Error)
-    case urlSessionError
-    case parsingError
-}
-
 protocol NetworkClient {
     func send<T: Decodable>(request: NetworkRequest, type: T.Type, completion: @escaping (Result<T, Error>) -> Void) -> NetworkTask?
     func send(request: NetworkRequest, completion: @escaping (Result<Data, Error>) -> Void) -> NetworkTask?
