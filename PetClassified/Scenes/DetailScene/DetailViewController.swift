@@ -16,6 +16,7 @@ final class DetailViewController: UIViewController {
     // MARK: - Private Properties
     private let detailView = DetailView()
     private var interactor: DetailInteractorProtocol?
+    private lazy var errorController = ErrorController(view: self.view)
 
     private let advertisement: Advertisement
     private let image: UIImage?
@@ -39,6 +40,7 @@ final class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        errorController.delegate = self
         configureView()
         let request = DetailModels.Request(advertisement: advertisement, image: image)
         interactor?.fetchData(request)
@@ -80,6 +82,16 @@ extension DetailViewController: DetailViewControllerProtocol {
     }
 
     func displayError(_ errorMessage: DetailModels.ErrorMessage) {
-        // TODO: error handling
+        errorController.showErrorView(with: errorMessage.message)
+    }
+}
+
+// MARK: - ErrorControllerDelegate
+extension DetailViewController: ErrorControllerDelegate {
+    func didTapTryAgainButton() {
+        errorController.removeErrorView { [weak self] in
+            guard let self else { return }
+            self.interactor?.fetchData(DetailModels.Request(advertisement: self.advertisement, image: self.image))
+        }
     }
 }
