@@ -22,11 +22,11 @@ final class DetailViewController: UIViewController {
     private let image: UIImage?
 
 
-    init(advertisement: Advertisement, image: UIImage?) {
+    init(advertisement: Advertisement, image: UIImage?, interactor: DetailInteractorProtocol) {
         self.advertisement = advertisement
         self.image = image
+        self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
-        setup()
     }
 
     required init?(coder: NSCoder) {
@@ -64,13 +64,6 @@ final class DetailViewController: UIViewController {
             navigationController?.navigationBar.standardAppearance = appearance
             navigationController?.navigationBar.scrollEdgeAppearance = appearance
         }
-    }
-
-    private func setup() {
-        var presenter: DetailPresenterProtocol = DetailPresenter()
-        interactor = DetailInteractor()
-        interactor?.presenter = presenter
-        presenter.viewController = self
     }
 }
 

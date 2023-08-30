@@ -19,6 +19,8 @@ final class NetworkWorker: NetworkWorkerProtocol {
     private var onGoingTasks: [String: NetworkTask] = [:]
     private let decoder = JSONDecoder()
 
+    private let onGoingTaskQueue = DispatchQueue(label: "com.petclassified.onGoingTasks")
+
     // MARK: - Initializers
     init() {
         self.networkClient = DefaultNetworkClient()
@@ -26,7 +28,8 @@ final class NetworkWorker: NetworkWorkerProtocol {
 
     // MARK: - Public Methods
     func send<T: Decodable>(request: NetworkRequest, type: T.Type, id: String, completion: @escaping (Result<T, Error>) -> Void) {
-        guard onGoingTasks[id] == nil else { return }
+        guard !shouldBreakTaskFor(id) else { return }
+
         let task = networkClient.send(request: request, type: type) {[weak self] result in
             self?.onGoingTasks[id] = nil
             completion(result)
@@ -37,7 +40,8 @@ final class NetworkWorker: NetworkWorkerProtocol {
     }
 
     func sendImageRequest(request: NetworkRequest, id: String, completion: @escaping (Result<UIImage, Error>) -> Void) {
-        guard onGoingTasks[id] == nil else { return }
+        guard !shouldBreakTaskFor(id) else { return }
+        
         let task = networkClient.send(request: request) { [weak self] result in
             self?.onGoingTasks[id] = nil
             switch result {
@@ -57,6 +61,18 @@ final class NetworkWorker: NetworkWorkerProtocol {
     }
 
     func cancelAllLoadTasks() {
-        onGoingTasks.forEach { $0.value.cancel() }
+        onGoingTaskQueue.sync {
+            onGoingTasks.forEach { $0.value.cancel() }
+        }
+    }
+
+    private func shouldBreakTaskFor(_ id: String) -> Bool {
+        onGoingTaskQueue.sync {
+            if onGoingTasks[id] != nil {
+                return true
+            } else {
+                return false
+            }
+        }
     }
 }

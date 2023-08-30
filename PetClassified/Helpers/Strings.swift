@@ -9,21 +9,21 @@ import Foundation
 
 struct TextStrings {
     struct MainViewController {
-        static let title = "Объявления"
+        static let title = NSLocalizedString("MainViewController.title", comment: "")
     }
     struct DetailView {
-        static let descriptionSeparatorLabel = "Описание"
-        static let contactsLabel = "Контакты:"
-        static let phoneButton = "Позвонить"
-        static let emailButton = "Написать"
+        static let descriptionSeparatorLabel = NSLocalizedString("DetailView.descriptionSeparatorLabel", comment: "")
+        static let contactsLabel = NSLocalizedString("DetailView.contactsLabel", comment: "")
+        static let phoneButton = NSLocalizedString("DetailView.phoneButton", comment: "")
+        static let emailButton = NSLocalizedString("DetailView.emailButton", comment: "")
     }
     struct ErrorView {
-        static let retryButton = "Попробовать снова"
+        static let retryButton = NSLocalizedString("ErrorView.retryButton", comment: "")
     }
     struct ErrorMessages {
-        static let httpStatusCode = "Ошибка соединения. Код ошибки: "
-        static let urlRequestError = "Ошибка запроса"
-        static let urlSessionError = "Нет сети"
-        static let parsingError = "Ошибка. Свяжитесь с разработчиком. Код ошибки 0"
+        static let httpStatusCode = NSLocalizedString("ErrorMessages.httpStatusCode", comment: "")
+        static let urlRequestError = NSLocalizedString("ErrorMessages.urlRequestError", comment: "")
+        static let urlSessionError = NSLocalizedString("ErrorMessages.urlSessionError", comment: "")
+        static let parsingError = NSLocalizedString("ErrorMessages.parsingError", comment: "")
     }
 }

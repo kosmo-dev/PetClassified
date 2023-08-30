@@ -8,10 +8,10 @@
 import UIKit
 
 protocol MainViewControllerProtocol: AnyObject {
-    func display(advs: [Advertisement])
-    func displayLoading(emptyAdvs: [Advertisement])
-    func updateCellWithImage(_ images: [String: UIImage], for indexPaths: [IndexPath])
-    func displayError(message: String)
+    func display(viewModel: MainModels.ViewModel)
+    func displayLoading(viewModel: MainModels.ViewModel)
+    func updateCellWithImage(viewModel: MainModels.ImageViewModel)
+    func displayError(error: MainModels.ErrorMessage)
 }
 
 final class MainViewController: UIViewController {
@@ -124,7 +124,7 @@ extension MainViewController: UICollectionViewDataSource {
         case .empty:
             return emptyCells
         case .loaded:
-            return cells.count
+            return emptyCells == 0 ? cells.count : 0
         }
     }
 
@@ -149,14 +149,18 @@ extension MainViewController: UICollectionViewDataSource {
 extension MainViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let imageURL = cells[indexPath.row].imageURL
-        interactor.fetchImage(for: imageURL)
+        interactor.fetchImage(request: MainModels.Request(imageURL: imageURL))
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard emptyCells == 0 else { return }
         let adv = cells[indexPath.row]
         let image = images[adv.imageURL]
-        let viewController = DetailViewController(advertisement: adv, image: image)
+        let detailInteractor = DetailInteractor()
+        let detailPresenter = DetailPresenter()
+        let viewController = DetailViewController(advertisement: adv, image: image, interactor: detailInteractor)
+        detailInteractor.presenter = detailPresenter
+        detailPresenter.viewController = viewController
         navigationController?.pushViewController(viewController, animated: true)
     }
 }
@@ -166,32 +170,32 @@ extension MainViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
         for indexPath in indexPaths {
             let imageURL = cells[indexPath.row].imageURL
-            interactor.fetchImage(for: imageURL)
+            interactor.fetchImage(request: MainModels.Request(imageURL: imageURL))
         }
     }
 }
 
 // MARK: - MainViewControllerProtocol
 extension MainViewController: MainViewControllerProtocol {
-    func display(advs: [Advertisement]) {
+    func display(viewModel: MainModels.ViewModel) {
         emptyCells = 0
-        cells = advs
+        cells = viewModel.advertisements
         reloadCollectionViewWithAnimation()
     }
 
-    func updateCellWithImage(_ images: [String : UIImage], for indexPaths: [IndexPath]) {
-        self.images = images
-        collectionView.reloadItems(at: indexPaths)
-    }
-
-    func displayLoading(emptyAdvs: [Advertisement]) {
-        emptyCells = emptyAdvs.count
-        cells = emptyAdvs
+    func displayLoading(viewModel: MainModels.ViewModel) {
+        emptyCells = viewModel.advertisements.count
+        cells = viewModel.advertisements
         collectionView.reloadData()
     }
 
-    func displayError(message: String) {
-        errorController.showErrorView(with: message)
+    func updateCellWithImage(viewModel: MainModels.ImageViewModel) {
+        self.images = viewModel.images
+        collectionView.reloadItems(at: viewModel.indexPaths)
+    }
+
+    func displayError(error: MainModels.ErrorMessage) {
+        errorController.showErrorView(with: error.message)
     }
 
     private func reloadCollectionViewWithAnimation() {

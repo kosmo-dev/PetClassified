@@ -1,0 +1,18 @@
+/* 
+  Localizable.strings
+  PetClassified
+
+  Created by Вадим Кузьмин on 30.08.2023.
+  
+*/
+
+"MainViewController.title" = "Classifieds";
+"DetailView.descriptionSeparatorLabel" = "Description";
+"DetailView.contactsLabel" = "Contacts:";
+"DetailView.phoneButton" = "Call";
+"DetailView.emailButton" = "Email";
+"ErrorView.retryButton" = "Try again";
+"ErrorMessages.httpStatusCode" = "Connection error. Error code: ";
+"ErrorMessages.urlRequestError" = "The request failed";
+"ErrorMessages.urlSessionError" = "No network";
+"ErrorMessages.parsingError" = "Error. Contact the developer. Error code 0";
