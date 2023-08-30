@@ -19,8 +19,8 @@ final class DetailInteractor: DetailInteractorProtocol {
     private var currentState: DetailViewState?
     private var image: UIImage?
 
-    init() {
-        networkWorker = NetworkWorker()
+    init(networkWorker: NetworkWorkerProtocol) {
+        self.networkWorker = networkWorker
     }
 
     func fetchData(_ request: DetailModels.Request) {

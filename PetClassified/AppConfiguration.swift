@@ -13,7 +13,8 @@ final class AppConfiguration {
     var mainPresenter: MainPresenterProtocol
 
     init() {
-        mainInteractor = MainInteractor()
+        let networkWorker = NetworkWorker()
+        mainInteractor = MainInteractor(networkWorker: networkWorker)
         mainPresenter = MainPresenter()
         mainViewController = MainViewController(interactor: mainInteractor)
         mainInteractor.presenter = mainPresenter
