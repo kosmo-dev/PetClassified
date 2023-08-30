@@ -10,7 +10,7 @@ import UIKit
 protocol MainInteractorProtocol {
     var presenter: MainPresenterProtocol? { get set }
     func fetchData()
-    func fetchImage(for imageURL: String)
+    func fetchImage(request: MainModels.Request)
     func cancelAllLoadTasks()
 }
 
@@ -35,7 +35,7 @@ final class MainInteractor: MainInteractorProtocol {
         if currentState == nil {
             currentState = .loading
             if let currentState {
-                presenter?.stateChanged(to: currentState)
+                presenter?.stateChanged(response: MainModels.Response(state: currentState))
             }
         }
         networkWorker.send(request: AdvertisementRequest(), type: Advertisements.self, id: UUID().uuidString) {[weak self] result in
@@ -48,23 +48,24 @@ final class MainInteractor: MainInteractorProtocol {
                 currentState = .error(error)
             }
             if let currentState {
-                self.presenter?.stateChanged(to: currentState)
+                self.presenter?.stateChanged(response: MainModels.Response(state: currentState))
             }
         }
     }
 
-    func fetchImage(for imageURL: String) {
-        guard images[imageURL] == nil, let state = currentState else { return }
+    func fetchImage(request: MainModels.Request) {
+        guard images[request.imageURL] == nil, let state = currentState else { return }
         switch state {
         case .display(_):
-            let url = URL(string: imageURL)
-            networkWorker.sendImageRequest(request: ImageRequest(endpoint: url), id: imageURL) { [weak self] result in
+            let url = URL(string: request.imageURL)
+            networkWorker.sendImageRequest(request: ImageRequest(endpoint: url), id: request.imageURL) { [weak self] result in
                 guard let self else { return }
                 switch result {
                 case .success(let image):
-                    self.images[imageURL] = image
-                    if let index = self.advs.firstIndex(where: { $0.imageURL == imageURL }) {
-                        self.presenter?.updateImage(images: self.images, index: index)
+                    self.images[request.imageURL] = image
+                    if let index = self.advs.firstIndex(where: { $0.imageURL == request.imageURL }) {
+                        let response = MainModels.ImageResponse(images: self.images, index: index)
+                        self.presenter?.updateImage(response: response)
                     }
                 case .failure(let error):
                     print(error)

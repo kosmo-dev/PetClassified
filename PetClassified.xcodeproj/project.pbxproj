@@ -10,6 +10,7 @@
 		3D7874F52A9E4F46001D69CC /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7874F42A9E4F46001D69CC /* ErrorView.swift */; };
 		3D7874F72A9E6E2B001D69CC /* ErrorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7874F62A9E6E2B001D69CC /* ErrorController.swift */; };
 		3D7874FA2A9E7808001D69CC /* NetworkClientErrorEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7874F92A9E7808001D69CC /* NetworkClientErrorEnum.swift */; };
+		3D7874FC2A9F3B60001D69CC /* MainModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7874FB2A9F3B60001D69CC /* MainModels.swift */; };
 		3D82627A2A99D4C300B5CA15 /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8262792A99D4C300B5CA15 /* MainCollectionViewCell.swift */; };
 		3D82627D2A99D52400B5CA15 /* CellReusingUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D82627C2A99D52400B5CA15 /* CellReusingUtils.swift */; };
 		3D8262802A99D96200B5CA15 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D82627F2A99D96200B5CA15 /* Colors.swift */; };
@@ -43,6 +44,7 @@
 		3D7874F42A9E4F46001D69CC /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		3D7874F62A9E6E2B001D69CC /* ErrorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorController.swift; sourceTree = "<group>"; };
 		3D7874F92A9E7808001D69CC /* NetworkClientErrorEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClientErrorEnum.swift; sourceTree = "<group>"; };
+		3D7874FB2A9F3B60001D69CC /* MainModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModels.swift; sourceTree = "<group>"; };
 		3D8262792A99D4C300B5CA15 /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
 		3D82627C2A99D52400B5CA15 /* CellReusingUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellReusingUtils.swift; sourceTree = "<group>"; };
 		3D82627F2A99D96200B5CA15 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 				3D8262792A99D4C300B5CA15 /* MainCollectionViewCell.swift */,
 				3D8262A32A9A8B2900B5CA15 /* MainEmptyCollectionViewCell.swift */,
 				3D8262A12A9A7B8800B5CA15 /* MainViewState.swift */,
+				3D7874FB2A9F3B60001D69CC /* MainModels.swift */,
 			);
 			path = MainScene;
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 			files = (
 				3D8262912A9A075F00B5CA15 /* NetworkRequest.swift in Sources */,
 				3D8262AE2A9BE11900B5CA15 /* DetailInteractor.swift in Sources */,
+				3D7874FC2A9F3B60001D69CC /* MainModels.swift in Sources */,
 				3D8262B42A9C907300B5CA15 /* DetailModels.swift in Sources */,
 				3DC9DF5E2A979106008E394F /* MainViewController.swift in Sources */,
 				3D82629A2A9A36B600B5CA15 /* APIRequests.swift in Sources */,

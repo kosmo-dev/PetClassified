@@ -9,8 +9,8 @@ import UIKit
 
 protocol MainPresenterProtocol {
     var viewController: MainViewControllerProtocol? { get set }
-    func stateChanged(to state: MainViewState)
-    func updateImage(images: [String: UIImage], index: Int)
+    func stateChanged(response: MainModels.Response)
+    func updateImage(response: MainModels.ImageResponse)
 }
 
 final class MainPresenter: MainPresenterProtocol {
@@ -25,23 +25,24 @@ final class MainPresenter: MainPresenterProtocol {
         Advertisement(id: "5", title: "", price: "", location: "", imageURL: "", createdDate: ""),
     ]
 
-    func stateChanged(to state: MainViewState) {
+    func stateChanged(response: MainModels.Response) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            switch state {
+            switch response.state {
             case .loading:
-                self.viewController?.displayLoading(emptyAdvs: loadingAdvs)
+                self.viewController?.displayLoading(viewModel: MainModels.ViewModel(advertisements: loadingAdvs))
             case .display(let advs):
-                self.viewController?.display(advs: advs)
+                self.viewController?.display(viewModel: MainModels.ViewModel(advertisements: advs))
             case .error(let error):
-                self.viewController?.displayError(message: error.localizedDescription)
+                self.viewController?.displayError(error: MainModels.ErrorMessage(message: error.localizedDescription))
             }
         }
     }
 
-    func updateImage(images: [String : UIImage], index: Int) {
+    func updateImage(response: MainModels.ImageResponse) {
         DispatchQueue.main.async { [weak self] in
-            self?.viewController?.updateCellWithImage(images, for: [IndexPath(row: index, section: 1)])
+            let viewModel = MainModels.ImageViewModel(images: response.images, indexPaths: [IndexPath(item: response.index, section: 1)])
+            self?.viewController?.updateCellWithImage(viewModel: viewModel)
         }
     }
 }
